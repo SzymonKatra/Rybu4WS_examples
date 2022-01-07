@@ -1,0 +1,21 @@
+server SomeServer {
+    var x: 0..2;
+    { DoAction | x >= 1 } -> {
+        x = 2;      -- MutLoc
+        return :ok; -- RetLoc
+    }
+}
+server TopLevelServer(s: SomeServer) {
+    { Perform } -> { s.DoAction(); return :ok; }
+    { Perform } -> { return :fail; }
+}
+var a = SomeServer() { x = 1 };
+var top1 = TopLevelServer(a);
+var top2 = TopLevelServer(a);
+
+process Test {
+    top1.Perform();
+    match top2.Perform() {
+        :ok -> { terminate; }
+    }
+}

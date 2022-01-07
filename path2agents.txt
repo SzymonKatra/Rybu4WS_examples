@@ -1,0 +1,44 @@
+﻿const N = 6;
+type BOOL = { false, true };
+
+server Field() {
+    var occupied: BOOL;
+    { take | occupied == :false } -> { occupied = :true; return :ok; }
+    { release | occupied == :true } -> { occupied = :false; return :ok; }
+}
+
+server Route(f: Field[N]) {
+    var current: 1..N;
+    var routeType: 1..2;
+    { next | current == 1 } -> { f[2].take(); current = 2; f[1].release(); return :ok; }
+    { next | current == 1 } -> { f[3].take(); current = 3; f[1].release(); return :ok; }
+
+    { next | current == 2 } -> { f[1].take(); current = 1; f[2].release(); return :ok; }
+    { next | current == 2 && routeType == 2 } -> { f[2].release(); terminate; }
+
+    { next | current == 3 } -> { f[1].take(); current = 1; f[3].release(); return :ok; }
+    { next | current == 3 } -> { f[4].take(); current = 4; f[3].release(); return :ok; }
+    { next | current == 3 } -> { f[5].take(); current = 5; f[3].release(); return :ok; }
+
+    { next | current == 4 } -> { f[3].take(); current = 3; f[4].release(); return :ok; }
+
+    { next | current == 5 } -> { f[3].take(); current = 3; f[5].release(); return :ok; }
+    { next | current == 5 } -> { f[6].take(); current = 6; f[5].release(); return :ok; }
+
+    { next | current == 6 } -> { f[5].take(); current = 5; f[6].release(); return :ok; }
+    { next | current == 6 && routeType == 1 } -> { f[6].release(); terminate; }
+}
+
+var field[1] = Field() { occupied = :false };
+var field[2] = Field() { occupied = :true };
+var field[3..5] = Field() { occupied = :false };
+var field[6] = Field() { occupied = :true };
+
+var route[1] = Route(field[1..N]) { current = 2, routeType = 1 };
+var route[2] = Route(field[1..N]) { current = 6, routeType = 2 };
+
+<i=1..2>process Exec {
+    loop {
+        route[i].next();
+    }
+}

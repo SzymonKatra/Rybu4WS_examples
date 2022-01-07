@@ -1,0 +1,6 @@
+server SomeServer {
+    var x: 0..2;
+    var y: { yes, no };
+}
+ 
+var s = SomeServer() { x = 1, y = :no };

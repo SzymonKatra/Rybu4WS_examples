@@ -1,0 +1,123 @@
+#DEFINE N 1
+
+server: car(agents A[N]:A; servers bike, ctrl, ProcessFirst),
+services {
+    PLACEHOLDER_DO_NOTHING
+},
+states {
+    fuel_0_isRunning_0
+},
+actions {
+};
+
+server: bike(agents A[N]:A; servers car, ctrl, ProcessFirst),
+services {
+    CALL_Start_FROM_ctrl,
+    EXEC_SI540EI553SL18SC37EL18EC50_FROM_ctrl,
+    EXEC_SI555EI565SL18SC52EL18EC62_FROM_ctrl,
+    EXEC_SI607EI622SL19SC38EL19EC53_FROM_ctrl,
+    CALL_Stop_FROM_ctrl,
+    EXEC_SI661EI679SL20SC35EL20EC53_FROM_ctrl,
+    EXEC_SI718EI731SL21SC35EL21EC48_FROM_ctrl,
+    EXEC_SI733EI743SL21SC50EL21EC60_FROM_ctrl
+},
+states {
+    isManOnBike_1_isRunning_0,
+    isManOnBike_1_isRunning_0_FROM_ctrl_PRE_SI540EI553SL18SC37EL18EC50,
+    isManOnBike_1_isRunning_1_FROM_ctrl_PRE_SI555EI565SL18SC52EL18EC62,
+    isManOnBike_1_isRunning_1,
+    isManOnBike_1_isRunning_1_FROM_ctrl_PRE_SI540EI553SL18SC37EL18EC50,
+    isManOnBike_1_isRunning_1_FROM_ctrl_PRE_SI555EI565SL18SC52EL18EC62,
+    isManOnBike_0_isRunning_0,
+    isManOnBike_0_isRunning_0_FROM_ctrl_PRE_SI607EI622SL19SC38EL19EC53,
+    isManOnBike_0_isRunning_1,
+    isManOnBike_0_isRunning_1_FROM_ctrl_PRE_SI607EI622SL19SC38EL19EC53,
+    isManOnBike_0_isRunning_0_FROM_ctrl_PRE_SI661EI679SL20SC35EL20EC53,
+    isManOnBike_1_isRunning_0_FROM_ctrl_PRE_SI661EI679SL20SC35EL20EC53,
+    isManOnBike_0_isRunning_1_FROM_ctrl_PRE_SI718EI731SL21SC35EL21EC48,
+    isManOnBike_0_isRunning_0_FROM_ctrl_PRE_SI733EI743SL21SC50EL21EC60,
+    isManOnBike_1_isRunning_1_FROM_ctrl_PRE_SI718EI731SL21SC35EL21EC48,
+    isManOnBike_1_isRunning_0_FROM_ctrl_PRE_SI733EI743SL21SC50EL21EC60
+},
+actions {
+    <j=1..N>{A[j].bike.CALL_Start_FROM_ctrl, bike.isManOnBike_1_isRunning_0} -> {A[j].bike.EXEC_SI540EI553SL18SC37EL18EC50_FROM_ctrl, bike.isManOnBike_1_isRunning_0_FROM_ctrl_PRE_SI540EI553SL18SC37EL18EC50},
+    <j=1..N>{A[j].bike.EXEC_SI540EI553SL18SC37EL18EC50_FROM_ctrl, bike.isManOnBike_1_isRunning_0_FROM_ctrl_PRE_SI540EI553SL18SC37EL18EC50} -> {A[j].bike.EXEC_SI555EI565SL18SC52EL18EC62_FROM_ctrl, bike.isManOnBike_1_isRunning_1_FROM_ctrl_PRE_SI555EI565SL18SC52EL18EC62},
+    <j=1..N>{A[j].bike.EXEC_SI555EI565SL18SC52EL18EC62_FROM_ctrl, bike.isManOnBike_1_isRunning_1_FROM_ctrl_PRE_SI555EI565SL18SC52EL18EC62} -> {A[j].ctrl.RETURN_ok, bike.isManOnBike_1_isRunning_1},
+    <j=1..N>{A[j].bike.CALL_Start_FROM_ctrl, bike.isManOnBike_1_isRunning_1} -> {A[j].bike.EXEC_SI540EI553SL18SC37EL18EC50_FROM_ctrl, bike.isManOnBike_1_isRunning_1_FROM_ctrl_PRE_SI540EI553SL18SC37EL18EC50},
+    <j=1..N>{A[j].bike.EXEC_SI540EI553SL18SC37EL18EC50_FROM_ctrl, bike.isManOnBike_1_isRunning_1_FROM_ctrl_PRE_SI540EI553SL18SC37EL18EC50} -> {A[j].bike.EXEC_SI555EI565SL18SC52EL18EC62_FROM_ctrl, bike.isManOnBike_1_isRunning_1_FROM_ctrl_PRE_SI555EI565SL18SC52EL18EC62},
+    <j=1..N>{A[j].bike.EXEC_SI555EI565SL18SC52EL18EC62_FROM_ctrl, bike.isManOnBike_1_isRunning_1_FROM_ctrl_PRE_SI555EI565SL18SC52EL18EC62} -> {A[j].ctrl.RETURN_ok, bike.isManOnBike_1_isRunning_1},
+    <j=1..N>{A[j].bike.CALL_Start_FROM_ctrl, bike.isManOnBike_0_isRunning_0} -> {A[j].bike.EXEC_SI607EI622SL19SC38EL19EC53_FROM_ctrl, bike.isManOnBike_0_isRunning_0_FROM_ctrl_PRE_SI607EI622SL19SC38EL19EC53},
+    <j=1..N>{A[j].bike.EXEC_SI607EI622SL19SC38EL19EC53_FROM_ctrl, bike.isManOnBike_0_isRunning_0_FROM_ctrl_PRE_SI607EI622SL19SC38EL19EC53} -> {A[j].ctrl.RETURN_nopower, bike.isManOnBike_0_isRunning_0},
+    <j=1..N>{A[j].bike.CALL_Start_FROM_ctrl, bike.isManOnBike_0_isRunning_1} -> {A[j].bike.EXEC_SI607EI622SL19SC38EL19EC53_FROM_ctrl, bike.isManOnBike_0_isRunning_1_FROM_ctrl_PRE_SI607EI622SL19SC38EL19EC53},
+    <j=1..N>{A[j].bike.EXEC_SI607EI622SL19SC38EL19EC53_FROM_ctrl, bike.isManOnBike_0_isRunning_1_FROM_ctrl_PRE_SI607EI622SL19SC38EL19EC53} -> {A[j].ctrl.RETURN_nopower, bike.isManOnBike_0_isRunning_1},
+    <j=1..N>{A[j].bike.CALL_Stop_FROM_ctrl, bike.isManOnBike_0_isRunning_0} -> {A[j].bike.EXEC_SI661EI679SL20SC35EL20EC53_FROM_ctrl, bike.isManOnBike_0_isRunning_0_FROM_ctrl_PRE_SI661EI679SL20SC35EL20EC53},
+    <j=1..N>{A[j].bike.EXEC_SI661EI679SL20SC35EL20EC53_FROM_ctrl, bike.isManOnBike_0_isRunning_0_FROM_ctrl_PRE_SI661EI679SL20SC35EL20EC53} -> {A[j].ctrl.RETURN_notstarted, bike.isManOnBike_0_isRunning_0},
+    <j=1..N>{A[j].bike.CALL_Stop_FROM_ctrl, bike.isManOnBike_1_isRunning_0} -> {A[j].bike.EXEC_SI661EI679SL20SC35EL20EC53_FROM_ctrl, bike.isManOnBike_1_isRunning_0_FROM_ctrl_PRE_SI661EI679SL20SC35EL20EC53},
+    <j=1..N>{A[j].bike.EXEC_SI661EI679SL20SC35EL20EC53_FROM_ctrl, bike.isManOnBike_1_isRunning_0_FROM_ctrl_PRE_SI661EI679SL20SC35EL20EC53} -> {A[j].ctrl.RETURN_notstarted, bike.isManOnBike_1_isRunning_0},
+    <j=1..N>{A[j].bike.CALL_Stop_FROM_ctrl, bike.isManOnBike_0_isRunning_1} -> {A[j].bike.EXEC_SI718EI731SL21SC35EL21EC48_FROM_ctrl, bike.isManOnBike_0_isRunning_1_FROM_ctrl_PRE_SI718EI731SL21SC35EL21EC48},
+    <j=1..N>{A[j].bike.EXEC_SI718EI731SL21SC35EL21EC48_FROM_ctrl, bike.isManOnBike_0_isRunning_1_FROM_ctrl_PRE_SI718EI731SL21SC35EL21EC48} -> {A[j].bike.EXEC_SI733EI743SL21SC50EL21EC60_FROM_ctrl, bike.isManOnBike_0_isRunning_0_FROM_ctrl_PRE_SI733EI743SL21SC50EL21EC60},
+    <j=1..N>{A[j].bike.EXEC_SI733EI743SL21SC50EL21EC60_FROM_ctrl, bike.isManOnBike_0_isRunning_0_FROM_ctrl_PRE_SI733EI743SL21SC50EL21EC60} -> {A[j].ctrl.RETURN_ok, bike.isManOnBike_0_isRunning_0},
+    <j=1..N>{A[j].bike.CALL_Stop_FROM_ctrl, bike.isManOnBike_1_isRunning_1} -> {A[j].bike.EXEC_SI718EI731SL21SC35EL21EC48_FROM_ctrl, bike.isManOnBike_1_isRunning_1_FROM_ctrl_PRE_SI718EI731SL21SC35EL21EC48},
+    <j=1..N>{A[j].bike.EXEC_SI718EI731SL21SC35EL21EC48_FROM_ctrl, bike.isManOnBike_1_isRunning_1_FROM_ctrl_PRE_SI718EI731SL21SC35EL21EC48} -> {A[j].bike.EXEC_SI733EI743SL21SC50EL21EC60_FROM_ctrl, bike.isManOnBike_1_isRunning_0_FROM_ctrl_PRE_SI733EI743SL21SC50EL21EC60},
+    <j=1..N>{A[j].bike.EXEC_SI733EI743SL21SC50EL21EC60_FROM_ctrl, bike.isManOnBike_1_isRunning_0_FROM_ctrl_PRE_SI733EI743SL21SC50EL21EC60} -> {A[j].ctrl.RETURN_ok, bike.isManOnBike_1_isRunning_0}
+};
+
+server: ctrl(agents A[N]:A; servers bike, car, ProcessFirst),
+services {
+    CALL_DoSomething_FROM_ProcessFirst,
+    EXEC_SI931EI951SL29SC8EL29EC28_FROM_ProcessFirst,
+    RETURN_ok,
+    EXEC_SI992EI1006SL31SC16EL31EC30_FROM_ProcessFirst,
+    RETURN_notstarted,
+    EXEC_SI1024EI1033SL32SC16EL32EC25_FROM_ProcessFirst,
+    TERMINATE,
+    RETURN_nopower,
+    MISSING_CODE_AFTER_SI931EI951SL29SC8EL29EC28_FROM_ProcessFirst
+},
+states {
+    NONE,
+    NONE_FROM_ProcessFirst_PRE_SI931EI951SL29SC8EL29EC28,
+    NONE_FROM_ProcessFirst_AT_SI931EI951SL29SC8EL29EC28,
+    NONE_FROM_ProcessFirst_PRE_SI992EI1006SL31SC16EL31EC30,
+    NONE_FROM_ProcessFirst_AT_SI992EI1006SL31SC16EL31EC30,
+    NONE_FROM_ProcessFirst_PRE_SI1024EI1033SL32SC16EL32EC25,
+    NONE_TERMINATE
+},
+actions {
+    <j=1..N>{A[j].ctrl.CALL_DoSomething_FROM_ProcessFirst, ctrl.NONE} -> {A[j].ctrl.EXEC_SI931EI951SL29SC8EL29EC28_FROM_ProcessFirst, ctrl.NONE_FROM_ProcessFirst_PRE_SI931EI951SL29SC8EL29EC28},
+    <j=1..N>{A[j].ctrl.EXEC_SI931EI951SL29SC8EL29EC28_FROM_ProcessFirst, ctrl.NONE_FROM_ProcessFirst_PRE_SI931EI951SL29SC8EL29EC28} -> {A[j].bike.CALL_Start_FROM_ctrl, ctrl.NONE_FROM_ProcessFirst_AT_SI931EI951SL29SC8EL29EC28},
+    <j=1..N>{A[j].ctrl.RETURN_ok, ctrl.NONE_FROM_ProcessFirst_AT_SI931EI951SL29SC8EL29EC28} -> {A[j].ctrl.EXEC_SI992EI1006SL31SC16EL31EC30_FROM_ProcessFirst, ctrl.NONE_FROM_ProcessFirst_PRE_SI992EI1006SL31SC16EL31EC30},
+    <j=1..N>{A[j].ctrl.EXEC_SI992EI1006SL31SC16EL31EC30_FROM_ProcessFirst, ctrl.NONE_FROM_ProcessFirst_PRE_SI992EI1006SL31SC16EL31EC30} -> {A[j].bike.CALL_Stop_FROM_ctrl, ctrl.NONE_FROM_ProcessFirst_AT_SI992EI1006SL31SC16EL31EC30},
+    <j=1..N>{A[j].ctrl.RETURN_notstarted, ctrl.NONE_FROM_ProcessFirst_AT_SI992EI1006SL31SC16EL31EC30} -> {A[j].ctrl.EXEC_SI1024EI1033SL32SC16EL32EC25_FROM_ProcessFirst, ctrl.NONE_FROM_ProcessFirst_PRE_SI1024EI1033SL32SC16EL32EC25},
+    <j=1..N>{A[j].ctrl.RETURN_ok, ctrl.NONE_FROM_ProcessFirst_AT_SI992EI1006SL31SC16EL31EC30} -> {A[j].ctrl.EXEC_SI1024EI1033SL32SC16EL32EC25_FROM_ProcessFirst, ctrl.NONE_FROM_ProcessFirst_PRE_SI1024EI1033SL32SC16EL32EC25},
+    <j=1..N>{A[j].ctrl.EXEC_SI1024EI1033SL32SC16EL32EC25_FROM_ProcessFirst, ctrl.NONE_FROM_ProcessFirst_PRE_SI1024EI1033SL32SC16EL32EC25} -> {A[j].ctrl.TERMINATE, ctrl.NONE_TERMINATE},
+    <j=1..N>{A[j].ctrl.TERMINATE, ctrl.NONE_TERMINATE} -> {ctrl.NONE_TERMINATE},
+    <j=1..N>{A[j].ctrl.RETURN_nopower, ctrl.NONE_FROM_ProcessFirst_AT_SI931EI951SL29SC8EL29EC28} -> {A[j].ctrl.MISSING_CODE_AFTER_SI931EI951SL29SC8EL29EC28_FROM_ProcessFirst, ctrl.NONE_FROM_ProcessFirst_AT_SI931EI951SL29SC8EL29EC28}
+};
+
+server: ProcessFirst(agents A[N]:A; servers bike, car, ctrl),
+services {
+    START_FROM_INIT,
+    EXEC_SI1224EI1242SL43SC4EL43EC22_FROM_INIT
+},
+states {
+    NONE,
+    NONE_FROM_INIT_PRE_SI1224EI1242SL43SC4EL43EC22,
+    NONE_FROM_INIT_AT_SI1224EI1242SL43SC4EL43EC22
+},
+actions {
+    <j=1..N>{A[j].ProcessFirst.START_FROM_INIT, ProcessFirst.NONE} -> {A[j].ProcessFirst.EXEC_SI1224EI1242SL43SC4EL43EC22_FROM_INIT, ProcessFirst.NONE_FROM_INIT_PRE_SI1224EI1242SL43SC4EL43EC22},
+    <j=1..N>{A[j].ProcessFirst.EXEC_SI1224EI1242SL43SC4EL43EC22_FROM_INIT, ProcessFirst.NONE_FROM_INIT_PRE_SI1224EI1242SL43SC4EL43EC22} -> {A[j].ctrl.CALL_DoSomething_FROM_ProcessFirst, ProcessFirst.NONE_FROM_INIT_AT_SI1224EI1242SL43SC4EL43EC22}
+};
+
+agents First;
+servers car, bike, ctrl, ProcessFirst;
+
+init -> {
+    car(First, bike, ctrl, ProcessFirst).fuel_0_isRunning_0,
+    bike(First, car, ctrl, ProcessFirst).isManOnBike_1_isRunning_0,
+    ctrl(First, bike, car, ProcessFirst).NONE,
+    ProcessFirst(First, bike, car, ctrl).NONE,
+
+    First.ProcessFirst.START_FROM_INIT,
+}.

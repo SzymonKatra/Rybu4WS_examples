@@ -1,0 +1,22 @@
+﻿const N = 2;
+type INTRANG = 0..N;
+
+server Resource {
+    var x: INTRANG;
+    { Act | x > 0 } -> {
+        loop {
+            x -= 1;
+            if (x == 0) {
+                return :ok;
+            }
+        }
+    }
+}
+
+var res = Resource() { x = N };
+
+process Proc
+{
+    res.Act();
+    terminate;
+}

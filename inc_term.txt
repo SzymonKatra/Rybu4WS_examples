@@ -1,0 +1,14 @@
+﻿const SOMCONST = 5;
+
+group G {
+    var x: 0..SOMCONST = 0;
+    process Inc {
+        loop {
+            x %= SOMCONST;
+            x += 1;
+            if (x == SOMCONST) {
+                terminate;
+            }
+        }
+    }
+}

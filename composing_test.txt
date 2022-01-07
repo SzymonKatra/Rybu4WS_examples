@@ -1,0 +1,17 @@
+﻿
+group Business {
+    var x: 0..3 = 0;
+
+    process First {
+        x += 1;
+        x += 1;
+        wait (x == 3);
+        terminate;
+    }
+
+    process Second {
+        wait(x == 2);
+        x += 1;
+        --terminate;
+    }
+}

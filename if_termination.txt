@@ -1,0 +1,17 @@
+group Grp {
+    var x: 0..4 = 0;
+    
+    process Inc {
+        x += 1;
+        x += 1;
+        x += 1;
+        x += 1;
+        terminate;
+    }
+
+    process If {
+        if (x == 2) {
+            terminate;
+        }
+    }
+}

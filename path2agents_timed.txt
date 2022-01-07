@@ -1,0 +1,43 @@
+﻿const N = 4;
+type BOOL = { false, true };
+
+server Field() {
+    var occupied: BOOL;
+    { take | occupied == :false } -> { occupied = :true; return :ok; }
+    { release | occupied == :true } -> { occupied = :false; return :ok; }
+}
+
+server Route(f: Field[N]) {
+    var current: 1..N;
+    var routeType: 1..2;
+    { next | current == 1 } -> { f[2].take(); current = 2; f[1].release(); return :ok; }
+    { next | current == 1 && routeType == 2 } -> { f[1].release(); terminate; }
+
+    { next | current == 2 } -> { f[1].take(); current = 1; f[2].release(); return :ok; }
+    { next | current == 2 } -> { f[4].take(); current = 4; f[2].release(); return :ok; }
+    { next | current == 2 } -> { f[3].take(); current = 3; f[2].release(); return :ok; }
+
+    { next | current == 3 } -> { f[2].take(); current = 2; f[3].release(); return :ok; }
+    { next | current == 3 && routeType == 1 } -> <2,5){ f[3].release(); terminate; }
+
+    { next | current == 4 } -> { f[2].take(); current = 2; f[4].release(); return :ok; }
+}
+
+var field[1] = Field() { occupied = :true };
+var field[2] = Field() { occupied = :false };
+var field[3] = Field() { occupied = :true };
+var field[4] = Field() { occupied = :false };
+
+var route[1] = Route(field[1..N]) { current = 1, routeType = 1 };
+var route[2] = Route(field[1..N]) { current = 3, routeType = 2 };
+
+channels {
+    <3, 5),
+    route[1..2] -> field[1] <5>
+}
+
+<i=1..2>process Exec {
+    loop {
+        route[i].next();
+    }
+}

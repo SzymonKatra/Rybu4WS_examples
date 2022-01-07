@@ -1,0 +1,21 @@
+server Res {
+    var x: 0..3;
+    { Act | x <= 1 } -> {
+        x += 1;
+        wait(x == 2);
+        return :ok;
+    }
+}
+
+var r1 = Res() { x = 0 };
+var r2 = Res() { x = 1 };
+
+process First {
+    r1.Act();
+    terminate;
+}
+
+process Second {
+    r2.Act();
+    terminate;
+}

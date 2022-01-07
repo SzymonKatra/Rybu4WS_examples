@@ -1,0 +1,159 @@
+#DEFINE N 2
+
+server: bank(agents A[N]:A; servers atm, bankingApp, ProcessFirst, ProcessSecond),
+services {
+    CALL_AToB_FROM_bankingApp,
+    EXEC_SI114EI127SL4SC50EL4EC63_FROM_bankingApp,
+    EXEC_SI129EI142SL4SC65EL4EC78_FROM_bankingApp,
+    EXEC_SI144EI154SL4SC80EL4EC90_FROM_bankingApp,
+    EXEC_SI192EI204SL5SC34EL5EC46_FROM_bankingApp,
+    CALL_DecrementB_FROM_atm,
+    EXEC_SI247EI260SL6SC39EL6EC52_FROM_atm,
+    EXEC_SI262EI272SL6SC54EL6EC64_FROM_atm,
+    EXEC_SI316EI328SL7SC40EL7EC52_FROM_atm
+},
+states {
+    balanceA_1_balanceB_0,
+    balanceA_1_balanceB_0_FROM_bankingApp_PRE_SI114EI127SL4SC50EL4EC63,
+    balanceA_0_balanceB_0_FROM_bankingApp_PRE_SI129EI142SL4SC65EL4EC78,
+    balanceA_0_balanceB_1_FROM_bankingApp_PRE_SI144EI154SL4SC80EL4EC90,
+    balanceA_0_balanceB_1,
+    balanceA_0_balanceB_0,
+    balanceA_0_balanceB_0_FROM_bankingApp_PRE_SI192EI204SL5SC34EL5EC46,
+    balanceA_1_balanceB_0_FROM_bankingApp_PRE_SI192EI204SL5SC34EL5EC46,
+    balanceA_0_balanceB_1_FROM_atm_PRE_SI247EI260SL6SC39EL6EC52,
+    balanceA_0_balanceB_0_FROM_atm_PRE_SI262EI272SL6SC54EL6EC64,
+    balanceA_1_balanceB_1,
+    balanceA_1_balanceB_1_FROM_atm_PRE_SI247EI260SL6SC39EL6EC52,
+    balanceA_1_balanceB_0_FROM_atm_PRE_SI262EI272SL6SC54EL6EC64,
+    balanceA_0_balanceB_0_FROM_atm_PRE_SI316EI328SL7SC40EL7EC52,
+    balanceA_1_balanceB_0_FROM_atm_PRE_SI316EI328SL7SC40EL7EC52
+},
+actions {
+    <j=1..N>{A[j].bank.CALL_AToB_FROM_bankingApp, bank.balanceA_1_balanceB_0} -> {A[j].bank.EXEC_SI114EI127SL4SC50EL4EC63_FROM_bankingApp, bank.balanceA_1_balanceB_0_FROM_bankingApp_PRE_SI114EI127SL4SC50EL4EC63},
+    <j=1..N>{A[j].bank.EXEC_SI114EI127SL4SC50EL4EC63_FROM_bankingApp, bank.balanceA_1_balanceB_0_FROM_bankingApp_PRE_SI114EI127SL4SC50EL4EC63} -> {A[j].bank.EXEC_SI129EI142SL4SC65EL4EC78_FROM_bankingApp, bank.balanceA_0_balanceB_0_FROM_bankingApp_PRE_SI129EI142SL4SC65EL4EC78},
+    <j=1..N>{A[j].bank.EXEC_SI129EI142SL4SC65EL4EC78_FROM_bankingApp, bank.balanceA_0_balanceB_0_FROM_bankingApp_PRE_SI129EI142SL4SC65EL4EC78} -> {A[j].bank.EXEC_SI144EI154SL4SC80EL4EC90_FROM_bankingApp, bank.balanceA_0_balanceB_1_FROM_bankingApp_PRE_SI144EI154SL4SC80EL4EC90},
+    <j=1..N>{A[j].bank.EXEC_SI144EI154SL4SC80EL4EC90_FROM_bankingApp, bank.balanceA_0_balanceB_1_FROM_bankingApp_PRE_SI144EI154SL4SC80EL4EC90} -> {A[j].bankingApp.RETURN_ok, bank.balanceA_0_balanceB_1},
+    <j=1..N>{A[j].bank.CALL_AToB_FROM_bankingApp, bank.balanceA_0_balanceB_0} -> {A[j].bank.EXEC_SI192EI204SL5SC34EL5EC46_FROM_bankingApp, bank.balanceA_0_balanceB_0_FROM_bankingApp_PRE_SI192EI204SL5SC34EL5EC46},
+    <j=1..N>{A[j].bank.EXEC_SI192EI204SL5SC34EL5EC46_FROM_bankingApp, bank.balanceA_0_balanceB_0_FROM_bankingApp_PRE_SI192EI204SL5SC34EL5EC46} -> {A[j].bankingApp.RETURN_fail, bank.balanceA_0_balanceB_0},
+    <j=1..N>{A[j].bank.CALL_AToB_FROM_bankingApp, bank.balanceA_1_balanceB_0} -> {A[j].bank.EXEC_SI192EI204SL5SC34EL5EC46_FROM_bankingApp, bank.balanceA_1_balanceB_0_FROM_bankingApp_PRE_SI192EI204SL5SC34EL5EC46},
+    <j=1..N>{A[j].bank.EXEC_SI192EI204SL5SC34EL5EC46_FROM_bankingApp, bank.balanceA_1_balanceB_0_FROM_bankingApp_PRE_SI192EI204SL5SC34EL5EC46} -> {A[j].bankingApp.RETURN_fail, bank.balanceA_1_balanceB_0},
+    <j=1..N>{A[j].bank.CALL_DecrementB_FROM_atm, bank.balanceA_0_balanceB_1} -> {A[j].bank.EXEC_SI247EI260SL6SC39EL6EC52_FROM_atm, bank.balanceA_0_balanceB_1_FROM_atm_PRE_SI247EI260SL6SC39EL6EC52},
+    <j=1..N>{A[j].bank.EXEC_SI247EI260SL6SC39EL6EC52_FROM_atm, bank.balanceA_0_balanceB_1_FROM_atm_PRE_SI247EI260SL6SC39EL6EC52} -> {A[j].bank.EXEC_SI262EI272SL6SC54EL6EC64_FROM_atm, bank.balanceA_0_balanceB_0_FROM_atm_PRE_SI262EI272SL6SC54EL6EC64},
+    <j=1..N>{A[j].bank.EXEC_SI262EI272SL6SC54EL6EC64_FROM_atm, bank.balanceA_0_balanceB_0_FROM_atm_PRE_SI262EI272SL6SC54EL6EC64} -> {A[j].atm.RETURN_ok, bank.balanceA_0_balanceB_0},
+    <j=1..N>{A[j].bank.CALL_DecrementB_FROM_atm, bank.balanceA_1_balanceB_1} -> {A[j].bank.EXEC_SI247EI260SL6SC39EL6EC52_FROM_atm, bank.balanceA_1_balanceB_1_FROM_atm_PRE_SI247EI260SL6SC39EL6EC52},
+    <j=1..N>{A[j].bank.EXEC_SI247EI260SL6SC39EL6EC52_FROM_atm, bank.balanceA_1_balanceB_1_FROM_atm_PRE_SI247EI260SL6SC39EL6EC52} -> {A[j].bank.EXEC_SI262EI272SL6SC54EL6EC64_FROM_atm, bank.balanceA_1_balanceB_0_FROM_atm_PRE_SI262EI272SL6SC54EL6EC64},
+    <j=1..N>{A[j].bank.EXEC_SI262EI272SL6SC54EL6EC64_FROM_atm, bank.balanceA_1_balanceB_0_FROM_atm_PRE_SI262EI272SL6SC54EL6EC64} -> {A[j].atm.RETURN_ok, bank.balanceA_1_balanceB_0},
+    <j=1..N>{A[j].bank.CALL_DecrementB_FROM_atm, bank.balanceA_0_balanceB_0} -> {A[j].bank.EXEC_SI316EI328SL7SC40EL7EC52_FROM_atm, bank.balanceA_0_balanceB_0_FROM_atm_PRE_SI316EI328SL7SC40EL7EC52},
+    <j=1..N>{A[j].bank.EXEC_SI316EI328SL7SC40EL7EC52_FROM_atm, bank.balanceA_0_balanceB_0_FROM_atm_PRE_SI316EI328SL7SC40EL7EC52} -> {A[j].atm.RETURN_fail, bank.balanceA_0_balanceB_0},
+    <j=1..N>{A[j].bank.CALL_DecrementB_FROM_atm, bank.balanceA_1_balanceB_0} -> {A[j].bank.EXEC_SI316EI328SL7SC40EL7EC52_FROM_atm, bank.balanceA_1_balanceB_0_FROM_atm_PRE_SI316EI328SL7SC40EL7EC52},
+    <j=1..N>{A[j].bank.EXEC_SI316EI328SL7SC40EL7EC52_FROM_atm, bank.balanceA_1_balanceB_0_FROM_atm_PRE_SI316EI328SL7SC40EL7EC52} -> {A[j].atm.RETURN_fail, bank.balanceA_1_balanceB_0}
+};
+
+server: atm(agents A[N]:A; servers bank, bankingApp, ProcessFirst, ProcessSecond),
+services {
+    CALL_WithdrawB_FROM_ProcessFirst,
+    EXEC_SI531EI550SL14SC8EL14EC27_FROM_ProcessFirst,
+    RETURN_ok,
+    EXEC_SI575EI595SL15SC21EL15EC41_FROM_ProcessFirst,
+    EXEC_SI597EI607SL15SC43EL15EC53_FROM_ProcessFirst,
+    RETURN_fail,
+    MISSING_CODE_AFTER_SI531EI550SL14SC8EL14EC27
+},
+states {
+    state_None,
+    state_None_FROM_ProcessFirst_PRE_SI531EI550SL14SC8EL14EC27,
+    state_None_FROM_ProcessFirst_AT_SI531EI550SL14SC8EL14EC27,
+    state_None_FROM_ProcessFirst_PRE_SI575EI595SL15SC21EL15EC41,
+    state_Withdrawing_FROM_ProcessFirst_PRE_SI597EI607SL15SC43EL15EC53,
+    state_Withdrawing
+},
+actions {
+    <j=1..N>{A[j].atm.CALL_WithdrawB_FROM_ProcessFirst, atm.state_None} -> {A[j].atm.EXEC_SI531EI550SL14SC8EL14EC27_FROM_ProcessFirst, atm.state_None_FROM_ProcessFirst_PRE_SI531EI550SL14SC8EL14EC27},
+    <j=1..N>{A[j].atm.EXEC_SI531EI550SL14SC8EL14EC27_FROM_ProcessFirst, atm.state_None_FROM_ProcessFirst_PRE_SI531EI550SL14SC8EL14EC27} -> {A[j].bank.CALL_DecrementB_FROM_atm, atm.state_None_FROM_ProcessFirst_AT_SI531EI550SL14SC8EL14EC27},
+    <j=1..N>{A[j].atm.RETURN_ok, atm.state_None_FROM_ProcessFirst_AT_SI531EI550SL14SC8EL14EC27} -> {A[j].atm.EXEC_SI575EI595SL15SC21EL15EC41_FROM_ProcessFirst, atm.state_None_FROM_ProcessFirst_PRE_SI575EI595SL15SC21EL15EC41},
+    <j=1..N>{A[j].atm.EXEC_SI575EI595SL15SC21EL15EC41_FROM_ProcessFirst, atm.state_None_FROM_ProcessFirst_PRE_SI575EI595SL15SC21EL15EC41} -> {A[j].atm.EXEC_SI597EI607SL15SC43EL15EC53_FROM_ProcessFirst, atm.state_Withdrawing_FROM_ProcessFirst_PRE_SI597EI607SL15SC43EL15EC53},
+    <j=1..N>{A[j].atm.EXEC_SI597EI607SL15SC43EL15EC53_FROM_ProcessFirst, atm.state_Withdrawing_FROM_ProcessFirst_PRE_SI597EI607SL15SC43EL15EC53} -> {A[j].ProcessFirst.RETURN_ok, atm.state_Withdrawing},
+    <j=1..N>{A[j].atm.RETURN_fail, atm.state_None_FROM_ProcessFirst_AT_SI531EI550SL14SC8EL14EC27} -> {A[j].atm.MISSING_CODE_AFTER_SI531EI550SL14SC8EL14EC27, atm.state_None_FROM_ProcessFirst_AT_SI531EI550SL14SC8EL14EC27}
+};
+
+server: bankingApp(agents A[N]:A; servers atm, bank, ProcessFirst, ProcessSecond),
+services {
+    CALL_TransferAToB_FROM_ProcessSecond,
+    EXEC_SI694EI702SL22SC8EL22EC16_FROM_ProcessSecond,
+    RETURN_ok,
+    RETURN_fail,
+    EXEC_SI712EI722SL23SC8EL23EC18_FROM_ProcessSecond
+},
+states {
+    NONE,
+    NONE_FROM_ProcessSecond_PRE_SI694EI702SL22SC8EL22EC16,
+    NONE_FROM_ProcessSecond_AT_SI694EI702SL22SC8EL22EC16,
+    NONE_FROM_ProcessSecond_PRE_SI712EI722SL23SC8EL23EC18
+},
+actions {
+    <j=1..N>{A[j].bankingApp.CALL_TransferAToB_FROM_ProcessSecond, bankingApp.NONE} -> {A[j].bankingApp.EXEC_SI694EI702SL22SC8EL22EC16_FROM_ProcessSecond, bankingApp.NONE_FROM_ProcessSecond_PRE_SI694EI702SL22SC8EL22EC16},
+    <j=1..N>{A[j].bankingApp.EXEC_SI694EI702SL22SC8EL22EC16_FROM_ProcessSecond, bankingApp.NONE_FROM_ProcessSecond_PRE_SI694EI702SL22SC8EL22EC16} -> {A[j].bank.CALL_AToB_FROM_bankingApp, bankingApp.NONE_FROM_ProcessSecond_AT_SI694EI702SL22SC8EL22EC16},
+    <j=1..N>{A[j].bankingApp.RETURN_ok, bankingApp.NONE_FROM_ProcessSecond_AT_SI694EI702SL22SC8EL22EC16} -> {A[j].bankingApp.EXEC_SI712EI722SL23SC8EL23EC18_FROM_ProcessSecond, bankingApp.NONE_FROM_ProcessSecond_PRE_SI712EI722SL23SC8EL23EC18},
+    <j=1..N>{A[j].bankingApp.RETURN_fail, bankingApp.NONE_FROM_ProcessSecond_AT_SI694EI702SL22SC8EL22EC16} -> {A[j].bankingApp.EXEC_SI712EI722SL23SC8EL23EC18_FROM_ProcessSecond, bankingApp.NONE_FROM_ProcessSecond_PRE_SI712EI722SL23SC8EL23EC18},
+    <j=1..N>{A[j].bankingApp.EXEC_SI712EI722SL23SC8EL23EC18_FROM_ProcessSecond, bankingApp.NONE_FROM_ProcessSecond_PRE_SI712EI722SL23SC8EL23EC18} -> {A[j].ProcessSecond.RETURN_ok, bankingApp.NONE},
+    <j=1..N>{A[j].bankingApp.EXEC_SI712EI722SL23SC8EL23EC18_FROM_ProcessSecond, bankingApp.NONE_FROM_ProcessSecond_PRE_SI712EI722SL23SC8EL23EC18} -> {A[j].ProcessSecond.RETURN_ok, bankingApp.NONE}
+};
+
+server: ProcessFirst(agents A[N]:A; servers atm, bank, bankingApp, ProcessSecond),
+services {
+    START_FROM_INIT,
+    EXEC_SI878EI893SL32SC4EL32EC19_FROM_INIT,
+    RETURN_ok,
+    EXEC_SI899EI908SL33SC4EL33EC13_FROM_INIT,
+    TERMINATE_EXIT
+},
+states {
+    NONE,
+    NONE_FROM_INIT_PRE_SI878EI893SL32SC4EL32EC19,
+    NONE_FROM_INIT_AT_SI878EI893SL32SC4EL32EC19,
+    NONE_FROM_INIT_PRE_SI899EI908SL33SC4EL33EC13
+},
+actions {
+    <j=1..N>{A[j].ProcessFirst.START_FROM_INIT, ProcessFirst.NONE} -> {A[j].ProcessFirst.EXEC_SI878EI893SL32SC4EL32EC19_FROM_INIT, ProcessFirst.NONE_FROM_INIT_PRE_SI878EI893SL32SC4EL32EC19},
+    <j=1..N>{A[j].ProcessFirst.EXEC_SI878EI893SL32SC4EL32EC19_FROM_INIT, ProcessFirst.NONE_FROM_INIT_PRE_SI878EI893SL32SC4EL32EC19} -> {A[j].atm.CALL_WithdrawB_FROM_ProcessFirst, ProcessFirst.NONE_FROM_INIT_AT_SI878EI893SL32SC4EL32EC19},
+    <j=1..N>{A[j].ProcessFirst.RETURN_ok, ProcessFirst.NONE_FROM_INIT_AT_SI878EI893SL32SC4EL32EC19} -> {A[j].ProcessFirst.EXEC_SI899EI908SL33SC4EL33EC13_FROM_INIT, ProcessFirst.NONE_FROM_INIT_PRE_SI899EI908SL33SC4EL33EC13},
+    <j=1..N>{A[j].ProcessFirst.EXEC_SI899EI908SL33SC4EL33EC13_FROM_INIT, ProcessFirst.NONE_FROM_INIT_PRE_SI899EI908SL33SC4EL33EC13} -> {A[j].ProcessFirst.TERMINATE_EXIT, ProcessFirst.NONE},
+    <j=1..N>{A[j].ProcessFirst.TERMINATE_EXIT, ProcessFirst.NONE} -> {ProcessFirst.NONE}
+};
+
+server: ProcessSecond(agents A[N]:A; servers atm, bank, bankingApp, ProcessFirst),
+services {
+    START_FROM_INIT,
+    EXEC_SI934EI959SL37SC4EL37EC29_FROM_INIT,
+    RETURN_ok,
+    EXEC_SI965EI974SL38SC4EL38EC13_FROM_INIT,
+    TERMINATE_EXIT
+},
+states {
+    NONE,
+    NONE_FROM_INIT_PRE_SI934EI959SL37SC4EL37EC29,
+    NONE_FROM_INIT_AT_SI934EI959SL37SC4EL37EC29,
+    NONE_FROM_INIT_PRE_SI965EI974SL38SC4EL38EC13
+},
+actions {
+    <j=1..N>{A[j].ProcessSecond.START_FROM_INIT, ProcessSecond.NONE} -> {A[j].ProcessSecond.EXEC_SI934EI959SL37SC4EL37EC29_FROM_INIT, ProcessSecond.NONE_FROM_INIT_PRE_SI934EI959SL37SC4EL37EC29},
+    <j=1..N>{A[j].ProcessSecond.EXEC_SI934EI959SL37SC4EL37EC29_FROM_INIT, ProcessSecond.NONE_FROM_INIT_PRE_SI934EI959SL37SC4EL37EC29} -> {A[j].bankingApp.CALL_TransferAToB_FROM_ProcessSecond, ProcessSecond.NONE_FROM_INIT_AT_SI934EI959SL37SC4EL37EC29},
+    <j=1..N>{A[j].ProcessSecond.RETURN_ok, ProcessSecond.NONE_FROM_INIT_AT_SI934EI959SL37SC4EL37EC29} -> {A[j].ProcessSecond.EXEC_SI965EI974SL38SC4EL38EC13_FROM_INIT, ProcessSecond.NONE_FROM_INIT_PRE_SI965EI974SL38SC4EL38EC13},
+    <j=1..N>{A[j].ProcessSecond.EXEC_SI965EI974SL38SC4EL38EC13_FROM_INIT, ProcessSecond.NONE_FROM_INIT_PRE_SI965EI974SL38SC4EL38EC13} -> {A[j].ProcessSecond.TERMINATE_EXIT, ProcessSecond.NONE},
+    <j=1..N>{A[j].ProcessSecond.TERMINATE_EXIT, ProcessSecond.NONE} -> {ProcessSecond.NONE}
+};
+
+agents First, Second;
+servers bank, atm, bankingApp, ProcessFirst, ProcessSecond;
+
+init -> {
+    bank(First, Second, atm, bankingApp, ProcessFirst, ProcessSecond).balanceA_1_balanceB_0,
+    atm(First, Second, bank, bankingApp, ProcessFirst, ProcessSecond).state_None,
+    bankingApp(First, Second, atm, bank, ProcessFirst, ProcessSecond).NONE,
+    ProcessFirst(First, Second, atm, bank, bankingApp, ProcessSecond).NONE,
+    ProcessSecond(First, Second, atm, bank, bankingApp, ProcessFirst).NONE,
+
+    First.ProcessFirst.START_FROM_INIT,
+    Second.ProcessSecond.START_FROM_INIT,
+}.

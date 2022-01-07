@@ -1,0 +1,17 @@
+﻿group G {
+    var x: 0..5 = 0;
+    process Inc {
+        loop {
+            x %= 5;
+            x += 1;
+            if (x == 5) {
+                terminate;
+            }
+        }
+    }
+    
+    process Waiter {
+        wait(x == 3);
+        terminate;
+    }
+}

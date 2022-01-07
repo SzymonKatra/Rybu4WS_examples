@@ -1,0 +1,15 @@
+﻿const V = 5;
+
+
+group G {
+    var x: 0..V[V] = 0;
+    <j=4..V>process Inc {
+        loop {
+            x[j] %= V;
+            x[j] += 1;
+            if (x[j] == V) {
+                terminate;
+            }
+        }
+    }
+}

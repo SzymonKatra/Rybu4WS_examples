@@ -1,0 +1,19 @@
+#DEFINE N 0
+
+server: s(agents A[N]:A),
+services {
+    PLACEHOLDER_DO_NOTHING
+},
+states {
+    x_1_y_no
+},
+actions {
+};
+
+agents ;
+servers s;
+
+init -> {
+    s().x_1_y_no,
+
+}.

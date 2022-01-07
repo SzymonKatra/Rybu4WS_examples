@@ -1,0 +1,51 @@
+﻿const NUM = 3;
+
+server TripService {
+    var state: { reserved, notReserved };
+    { Reserve | state == :notReserved } -> { state = :reserved; return :ok; }
+    { Reserve | state == :reserved } -> { return :fail; }
+    { Cancel | state == :reserved  } -> { state = :notReserved; return :ok; }
+}
+
+var resource[1..NUM] = TripService() { state = :notReserved };
+
+group Trip {
+    var isReserved: { yes, no }[NUM] = :no;
+    var replyCount: 0..NUM = 0;
+    
+    <i=1..NUM>process Reserve {
+        match resource[i].Reserve() {
+            :ok -> { isReserved[i] = :yes; }
+        }
+        replyCount += 1;
+        terminate;
+    }
+
+    process Controller {
+        wait(replyCount == NUM);
+        if (isReserved[1] != :yes || isReserved[2] != :yes || isReserved[3] != :yes) {
+            if (isReserved[1] == :yes) {
+                resource[1].Cancel();
+            }
+            
+            if (isReserved[2] == :yes) {
+                resource[2].Cancel();
+            }
+            
+            if (isReserved[3] == :yes) {
+                resource[3].Cancel();
+            }
+        }
+        
+        if (isReserved[1] == :yes || isReserved[2] == :yes || isReserved[3] == :yes) {
+            terminate;
+        }
+    }
+}
+
+process PrivatePerson
+{
+    match resource[2].Reserve() {
+        :ok -> { terminate; }
+    }
+}

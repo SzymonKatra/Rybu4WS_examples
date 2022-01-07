@@ -1,0 +1,15 @@
+
+group All {
+    var n: 0..1 = 0;
+    
+    process First {
+        n += 1;
+        terminate;
+    }
+
+    process Second {
+        wait(n == 1);
+        terminate;
+    }
+}
+

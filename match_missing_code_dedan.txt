@@ -1,0 +1,88 @@
+#DEFINE N 1
+
+server: res(agents A[N]:A; servers ProcessFirst, svc),
+services {
+    CALL_ReturnA_FROM_svc,
+    EXEC_SI39EI48SL2SC21EL2EC30_FROM_svc
+},
+states {
+    NONE,
+    NONE_FROM_svc_PRE_SI39EI48SL2SC21EL2EC30
+},
+actions {
+    <j=1..N>{A[j].res.CALL_ReturnA_FROM_svc, res.NONE} -> {A[j].res.EXEC_SI39EI48SL2SC21EL2EC30_FROM_svc, res.NONE_FROM_svc_PRE_SI39EI48SL2SC21EL2EC30},
+    <j=1..N>{A[j].res.EXEC_SI39EI48SL2SC21EL2EC30_FROM_svc, res.NONE_FROM_svc_PRE_SI39EI48SL2SC21EL2EC30} -> {A[j].svc.RETURN_a, res.NONE}
+};
+
+server: svc(agents A[N]:A; servers ProcessFirst, res),
+services {
+    CALL_DoIt_FROM_ProcessFirst,
+    EXEC_SI164EI179SL8SC8EL8EC23_FROM_ProcessFirst,
+    EXEC_SI189EI205SL9SC8EL9EC24_FROM_ProcessFirst,
+    RETURN_a,
+    EXEC_SI229EI245SL10SC20EL10EC36_FROM_ProcessFirst,
+    PROCEED_SI229EI245SL10SC20EL10EC36_FROM_ProcessFirst,
+    EXEC_SI267EI281SL12SC8EL12EC22_FROM_ProcessFirst,
+    PROCEED_SI267EI281SL12SC8EL12EC22_FROM_ProcessFirst,
+    MISSING_CODE_AFTER_SI267EI281SL12SC8EL12EC22
+},
+states {
+    state_None,
+    state_None_FROM_ProcessFirst_PRE_SI164EI179SL8SC8EL8EC23,
+    state_Before_FROM_ProcessFirst_PRE_SI189EI205SL9SC8EL9EC24,
+    state_Before_FROM_ProcessFirst_AT_SI189EI205SL9SC8EL9EC24,
+    state_Before_FROM_ProcessFirst_PRE_SI229EI245SL10SC20EL10EC36,
+    state_Matched_FROM_ProcessFirst_AT_SI229EI245SL10SC20EL10EC36,
+    state_Before_FROM_ProcessFirst_PRE_SI267EI281SL12SC8EL12EC22,
+    state_Matched_FROM_ProcessFirst_PRE_SI267EI281SL12SC8EL12EC22,
+    state_After_FROM_ProcessFirst_AT_SI267EI281SL12SC8EL12EC22,
+    state_Before,
+    state_Before_FROM_ProcessFirst_PRE_SI164EI179SL8SC8EL8EC23,
+    state_Matched,
+    state_Matched_FROM_ProcessFirst_PRE_SI164EI179SL8SC8EL8EC23,
+    state_After,
+    state_After_FROM_ProcessFirst_PRE_SI164EI179SL8SC8EL8EC23
+},
+actions {
+    <j=1..N>{A[j].svc.CALL_DoIt_FROM_ProcessFirst, svc.state_None} -> {A[j].svc.EXEC_SI164EI179SL8SC8EL8EC23_FROM_ProcessFirst, svc.state_None_FROM_ProcessFirst_PRE_SI164EI179SL8SC8EL8EC23},
+    <j=1..N>{A[j].svc.EXEC_SI164EI179SL8SC8EL8EC23_FROM_ProcessFirst, svc.state_None_FROM_ProcessFirst_PRE_SI164EI179SL8SC8EL8EC23} -> {A[j].svc.EXEC_SI189EI205SL9SC8EL9EC24_FROM_ProcessFirst, svc.state_Before_FROM_ProcessFirst_PRE_SI189EI205SL9SC8EL9EC24},
+    <j=1..N>{A[j].svc.EXEC_SI189EI205SL9SC8EL9EC24_FROM_ProcessFirst, svc.state_Before_FROM_ProcessFirst_PRE_SI189EI205SL9SC8EL9EC24} -> {A[j].res.CALL_ReturnA_FROM_svc, svc.state_Before_FROM_ProcessFirst_AT_SI189EI205SL9SC8EL9EC24},
+    <j=1..N>{A[j].svc.RETURN_a, svc.state_Before_FROM_ProcessFirst_AT_SI189EI205SL9SC8EL9EC24} -> {A[j].svc.EXEC_SI229EI245SL10SC20EL10EC36_FROM_ProcessFirst, svc.state_Before_FROM_ProcessFirst_PRE_SI229EI245SL10SC20EL10EC36},
+    <j=1..N>{A[j].svc.EXEC_SI229EI245SL10SC20EL10EC36_FROM_ProcessFirst, svc.state_Before_FROM_ProcessFirst_PRE_SI229EI245SL10SC20EL10EC36} -> {A[j].svc.PROCEED_SI229EI245SL10SC20EL10EC36_FROM_ProcessFirst, svc.state_Matched_FROM_ProcessFirst_AT_SI229EI245SL10SC20EL10EC36},
+    <j=1..N>{A[j].svc.PROCEED_SI229EI245SL10SC20EL10EC36_FROM_ProcessFirst, svc.state_Matched_FROM_ProcessFirst_AT_SI229EI245SL10SC20EL10EC36} -> {A[j].svc.EXEC_SI267EI281SL12SC8EL12EC22_FROM_ProcessFirst, svc.state_Matched_FROM_ProcessFirst_PRE_SI267EI281SL12SC8EL12EC22},
+    <j=1..N>{A[j].svc.EXEC_SI267EI281SL12SC8EL12EC22_FROM_ProcessFirst, svc.state_Matched_FROM_ProcessFirst_PRE_SI267EI281SL12SC8EL12EC22} -> {A[j].svc.PROCEED_SI267EI281SL12SC8EL12EC22_FROM_ProcessFirst, svc.state_After_FROM_ProcessFirst_AT_SI267EI281SL12SC8EL12EC22},
+    <j=1..N>{A[j].svc.PROCEED_SI267EI281SL12SC8EL12EC22_FROM_ProcessFirst, svc.state_After_FROM_ProcessFirst_AT_SI267EI281SL12SC8EL12EC22} -> {A[j].svc.MISSING_CODE_AFTER_SI267EI281SL12SC8EL12EC22, svc.state_After_FROM_ProcessFirst_AT_SI267EI281SL12SC8EL12EC22},
+    <j=1..N>{A[j].svc.CALL_DoIt_FROM_ProcessFirst, svc.state_Before} -> {A[j].svc.EXEC_SI164EI179SL8SC8EL8EC23_FROM_ProcessFirst, svc.state_Before_FROM_ProcessFirst_PRE_SI164EI179SL8SC8EL8EC23},
+    <j=1..N>{A[j].svc.EXEC_SI164EI179SL8SC8EL8EC23_FROM_ProcessFirst, svc.state_Before_FROM_ProcessFirst_PRE_SI164EI179SL8SC8EL8EC23} -> {A[j].svc.EXEC_SI189EI205SL9SC8EL9EC24_FROM_ProcessFirst, svc.state_Before_FROM_ProcessFirst_PRE_SI189EI205SL9SC8EL9EC24},
+    <j=1..N>{A[j].svc.CALL_DoIt_FROM_ProcessFirst, svc.state_Matched} -> {A[j].svc.EXEC_SI164EI179SL8SC8EL8EC23_FROM_ProcessFirst, svc.state_Matched_FROM_ProcessFirst_PRE_SI164EI179SL8SC8EL8EC23},
+    <j=1..N>{A[j].svc.EXEC_SI164EI179SL8SC8EL8EC23_FROM_ProcessFirst, svc.state_Matched_FROM_ProcessFirst_PRE_SI164EI179SL8SC8EL8EC23} -> {A[j].svc.EXEC_SI189EI205SL9SC8EL9EC24_FROM_ProcessFirst, svc.state_Before_FROM_ProcessFirst_PRE_SI189EI205SL9SC8EL9EC24},
+    <j=1..N>{A[j].svc.CALL_DoIt_FROM_ProcessFirst, svc.state_After} -> {A[j].svc.EXEC_SI164EI179SL8SC8EL8EC23_FROM_ProcessFirst, svc.state_After_FROM_ProcessFirst_PRE_SI164EI179SL8SC8EL8EC23},
+    <j=1..N>{A[j].svc.EXEC_SI164EI179SL8SC8EL8EC23_FROM_ProcessFirst, svc.state_After_FROM_ProcessFirst_PRE_SI164EI179SL8SC8EL8EC23} -> {A[j].svc.EXEC_SI189EI205SL9SC8EL9EC24_FROM_ProcessFirst, svc.state_Before_FROM_ProcessFirst_PRE_SI189EI205SL9SC8EL9EC24}
+};
+
+server: ProcessFirst(agents A[N]:A; servers res, svc),
+services {
+    START_FROM_INIT,
+    EXEC_SI381EI391SL20SC4EL20EC14_FROM_INIT
+},
+states {
+    NONE,
+    NONE_FROM_INIT_PRE_SI381EI391SL20SC4EL20EC14,
+    NONE_FROM_INIT_AT_SI381EI391SL20SC4EL20EC14,
+    NONE_FROM_INIT_PRE_SI397EI406SL21SC4EL21EC13
+},
+actions {
+    <j=1..N>{A[j].ProcessFirst.START_FROM_INIT, ProcessFirst.NONE} -> {A[j].ProcessFirst.EXEC_SI381EI391SL20SC4EL20EC14_FROM_INIT, ProcessFirst.NONE_FROM_INIT_PRE_SI381EI391SL20SC4EL20EC14},
+    <j=1..N>{A[j].ProcessFirst.EXEC_SI381EI391SL20SC4EL20EC14_FROM_INIT, ProcessFirst.NONE_FROM_INIT_PRE_SI381EI391SL20SC4EL20EC14} -> {A[j].svc.CALL_DoIt_FROM_ProcessFirst, ProcessFirst.NONE_FROM_INIT_AT_SI381EI391SL20SC4EL20EC14}
+};
+
+agents First;
+servers res, svc, ProcessFirst;
+
+init -> {
+    res(First, ProcessFirst, svc).NONE,
+    svc(First, ProcessFirst, res).state_None,
+    ProcessFirst(First, res, svc).NONE,
+
+    First.ProcessFirst.START_FROM_INIT,
+}.

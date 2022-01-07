@@ -1,0 +1,46 @@
+const N = 2;
+type BOOL = { false, true };
+
+server TripService {
+    var isReserved: BOOL;
+    { Reserve | isReserved == :false } -> { isReserved = :true; return :ok; }
+    { Reserve | isReserved == :true } -> { return :fail; }
+    { Cancel | isReserved == :true  } -> { isReserved = :false; return :ok; }
+}
+
+var resource[1..N] = TripService() { isReserved = :false };
+
+group Trip {
+    var isReserved: BOOL[N] = :false;
+    var replyCount: 0..N = 0;
+    
+    <i=1..N>process Reserve {
+        match resource[i].Reserve() {
+            :ok -> { isReserved[i] = :true; }
+        }
+        replyCount += 1;
+        terminate;
+    }
+
+    process Controller {
+        wait(replyCount == N);
+        if (isReserved[1] != :true || isReserved[2] != :true) {
+            if (isReserved[1] == :true) {
+                resource[1].Cancel();
+            }
+            
+            if (isReserved[2] == :true) {
+                resource[2].Cancel();
+            }
+        }
+        
+        terminate;
+    }
+}
+
+process PrivatePerson
+{
+    match resource[2].Reserve() {
+        :ok -> { terminate; }
+    }
+}
